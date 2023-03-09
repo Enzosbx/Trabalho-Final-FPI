@@ -21,3 +21,6 @@ def user_drawn_boundary(img):
     plt.show()
 
     return (x1,y1,x2,y2)
+
+def get_user_boundary():
+    return (x1,y1,x2,y2)

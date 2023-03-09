@@ -14,8 +14,9 @@ mask = image.Image().grab_and_Cut()
 cv.imshow('a', mask)
 cv.waitKey(0)
 
+print(f'K : {image.Image().compute_k()}')
 
 poisson_result = image.Image().poisson_editing(mask)
-cv.imshow('r', user.user_drawn_boundary(poisson_result))
+cv.imshow('r', poisson_result)
 cv.waitKey(0)
 
