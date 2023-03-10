@@ -10,22 +10,23 @@ class Image:
     def __init__(self):
         self.source_img = self.initialize_source_img()
         self.target_img = self.initialize_target_img()
+        self.grab_and_cut_mask = self.grab_and_cut()
 
     def initialize_source_img(self):
         absolute_path = os.path.dirname(os.path.abspath(__file__))
         imgs_path = os.path.join(absolute_path, '*.jpg').strip()
         img_files = glob(imgs_path)
 
-        return cv.imread(img_files[1])
+        return cv.imread(img_files[5])
     
     def initialize_target_img(self):
         absolute_path = os.path.dirname(os.path.abspath(__file__))
         imgs_path = os.path.join(absolute_path, '*.jpg').strip()
         img_files = glob(imgs_path)
 
-        return cv.imread(img_files[7])
+        return cv.imread(img_files[8])
     
-    def grab_and_Cut(self):
+    def grab_and_cut(self):
         mask = np.zeros(self.source_img.shape[:2],np.uint8)
 
         bgdModel = np.zeros((1,65),np.float64)
@@ -50,27 +51,12 @@ class Image:
 
         return mixed_clone
     
-    def compute_k(self):
-        cur_boundary = user.get_user_boundary()
-        sum_p = 0
-
-        #print(f'left: {cur_boundary[0]}, top: {cur_boundary[1]}, right: {cur_boundary[2]}, bottom: {cur_boundary[3]}')
-        for x in range(cur_boundary[0], cur_boundary[2]):
-            sum_p += self.color_diff(self.target_img[cur_boundary[3]][x], self.source_img[cur_boundary[3]][x])
-            sum_p += self.color_diff(self.target_img[cur_boundary[3]][x], self.source_img[cur_boundary[3]][x])
-
-        for y in range(cur_boundary[1], cur_boundary[3]):
-            sum_p += self.color_diff(self.target_img[y][cur_boundary[2]], self.source_img[y][cur_boundary[2]])
-            sum_p += self.color_diff(self.target_img[y][cur_boundary[0]], self.source_img[y][cur_boundary[0]])
-        
-        perimeter = ((2*cur_boundary[3]-cur_boundary[0])+(2*cur_boundary[2]-cur_boundary[1]))
-
-        return (1/perimeter) * sum_p
-        
+    def get_grab_and_cut_mask(self):
+        return self.grab_and_cut_mask
     
-    def color_diff(self, target, source):
-        return math.sqrt(pow(int(target[0]) - int(source[0]), 2) +
-                        pow(int(target[1]) - int(source[1]), 2) + 
-                        pow(int(target[2]) - int(source[2]), 2))
-
+    def get_source_img(self):
+        return self.source_img
+    
+    def get_target_img(self):
+        return self.target_img
 
