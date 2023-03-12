@@ -83,6 +83,7 @@ def define_init_cut_line(mask, cur_boundary):
         y_list.append (i[1])
 
     x_list.sort()
+    
     closer_x = 0
     if (x_list[0] - cur_boundary[0] >= cur_boundary[2] - x_list[-1]):
         closer_x = x_list[0]
@@ -117,15 +118,9 @@ def define_cut_line_coordinates(mask, cur_boundary):
 
    # tendo achado o primeiro ponto de cut line, precisamos traçar a linha
 
-    cut_line_fst_point = define_init_cut_line(mask, cur_boundary)
-    print(cut_line_fst_point)
-    
+    cut_line_fst_point = define_init_cut_line(mask, cur_boundary) 
     cut_line_coordinates = []
 
-    print(cut_line_fst_point[0])
-    print(cur_boundary[0])
-    print(cut_line_fst_point[1])
-    print(cur_boundary[1])
     
     if  (cut_line_fst_point[0] - cur_boundary[0]) >= (cut_line_fst_point[1] - cur_boundary[1]):
         for point_y in range(cur_boundary[1], cut_line_fst_point[1]):  # mais próximo eixo y
