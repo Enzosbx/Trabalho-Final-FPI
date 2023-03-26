@@ -24,3 +24,4 @@ def user_drawn_boundary(img):
 
 def get_user_boundary():
     return (x1,y1,x2,y2)
+
